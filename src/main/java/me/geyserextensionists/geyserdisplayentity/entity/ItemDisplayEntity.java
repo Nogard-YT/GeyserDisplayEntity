@@ -300,18 +300,15 @@ public class ItemDisplayEntity extends SlotDisplayEntity {
 
     @Override
     public void moveAbsoluteRaw(Vector3f position, float yaw, float pitch, float headYaw, boolean isOnGround, boolean teleported) {
-        double yOffset = config == null ? 0 : config.getDouble("y-offset");
         setPosition(position);
         setYaw(yaw);
         setPitch(pitch);
         setHeadYaw(headYaw);
         setOnGround(isOnGround);
-        position = position.clone().add(0, yOffset, 0);
-        setOnGround(isOnGround);
 
         MoveEntityAbsolutePacket moveEntityPacket = new MoveEntityAbsolutePacket();
         moveEntityPacket.setRuntimeEntityId(geyserId);
-        moveEntityPacket.setPosition(position);
+        moveEntityPacket.setPosition(bedrockPosition());
         moveEntityPacket.setRotation(bedrockRotation());
         moveEntityPacket.setOnGround(isOnGround);
         moveEntityPacket.setTeleported(teleported);
